@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "407296200230",
+    "project_id": "civic-report-50e2b",
+    "storage_bucket": "civic-report-50e2b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407296200230:android:8531c568f06c067565e0e7",
+        "android_client_info": {
+          "package_name": "com.example.sih"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407296200230-fga2kh164coeds6hbbcnb35f9bq1vjub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKGMUVEONiTI57ASfdK8qJpqRxL-xvRD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407296200230-fga2kh164coeds6hbbcnb35f9bq1vjub.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "407296200230-sf0sfulpo9tuhfgelpiukkabl4i6ljjd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sih"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
