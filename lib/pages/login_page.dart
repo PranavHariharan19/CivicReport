@@ -1,8 +1,5 @@
-// File: login_page.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sih/services/auth_service.dart';
-import 'package:sih/main.dart';
+import 'package:sih/widgets/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   final String userType;
@@ -13,7 +10,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -31,8 +29,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
-
+    ).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
     _animationController.forward();
   }
 
@@ -57,7 +55,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(
           '${widget.userType == 'admin' ? 'Admin' : 'Public'} Login',
-          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
@@ -110,7 +109,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             borderRadius: BorderRadius.circular(40),
           ),
           child: Icon(
-            widget.userType == 'admin' ? Icons.admin_panel_settings : Icons.people,
+            widget.userType == 'admin'
+                ? Icons.admin_panel_settings
+                : Icons.people,
             color: Colors.white,
             size: 40,
           ),
@@ -153,7 +154,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25)),
           ),
           child: const Text(
             'Proceed',

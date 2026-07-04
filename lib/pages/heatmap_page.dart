@@ -1,6 +1,5 @@
-// File: HeatmapPage.dart
 import 'package:flutter/material.dart';
-import 'package:sih/main.dart';
+import 'package:sih/widgets/app_colors.dart';
 import 'package:sih/models.dart';
 
 class HeatmapPage extends StatefulWidget {
@@ -14,10 +13,13 @@ class _HeatmapPageState extends State<HeatmapPage> {
   String _selectedFilter = 'All';
 
   final List<Report> _mockReports = [
-    // Existing reports
     Report(
       id: '1',
-      author: User(id: 'user_1', username: 'Sarah Chen', joinDate: DateTime(2023, 10, 26), profileImageUrl: 'https://i.pravatar.cc/300?img=15'),
+      author: User(
+          id: 'user_1',
+          username: 'Sarah Chen',
+          joinDate: DateTime(2023, 10, 26),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=15'),
       title: 'Dangerous Pothole on Main Street',
       description: '',
       dateTime: DateTime.now(),
@@ -30,7 +32,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '2',
-      author: User(id: 'user_2', username: 'Michael Rodriguez', joinDate: DateTime(2023, 11, 10), profileImageUrl: 'https://i.pravatar.cc/300?img=13'),
+      author: User(
+          id: 'user_2',
+          username: 'Michael Rodriguez',
+          joinDate: DateTime(2023, 11, 10),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=13'),
       title: 'Broken Streetlight - Safety Concern',
       description: '',
       dateTime: DateTime.now(),
@@ -43,7 +49,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '3',
-      author: User(id: 'user_3', username: 'Amanda Williams', joinDate: DateTime(2024, 2, 28), profileImageUrl: 'https://i.pravatar.cc/300?img=14'),
+      author: User(
+          id: 'user_3',
+          username: 'Amanda Williams',
+          joinDate: DateTime(2024, 2, 28),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=14'),
       title: 'Illegal Garbage Dumping',
       description: '',
       dateTime: DateTime.now(),
@@ -51,13 +61,18 @@ class _HeatmapPageState extends State<HeatmapPage> {
       tags: ['Illegal Dumping', 'Environment'],
       upvotes: 31,
       downvotes: 2,
-      imageUrl: 'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop',
+      imageUrl:
+          'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop',
       latitude: 13.0456,
       longitude: 80.2190,
     ),
     Report(
       id: '4',
-      author: User(id: 'user_4', username: 'James Park', joinDate: DateTime(2024, 3, 1), profileImageUrl: 'https://i.pravatar.cc/300?img=16'),
+      author: User(
+          id: 'user_4',
+          username: 'James Park',
+          joinDate: DateTime(2024, 3, 1),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=16'),
       title: 'Noise Complaint - Construction',
       description: '',
       dateTime: DateTime.now(),
@@ -70,7 +85,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '5',
-      author: User(id: 'user_5', username: 'Lisa Tran', joinDate: DateTime(2023, 8, 20), profileImageUrl: 'https://i.pravatar.cc/300?img=17'),
+      author: User(
+          id: 'user_5',
+          username: 'Lisa Tran',
+          joinDate: DateTime(2023, 8, 20),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=17'),
       title: 'Graffiti on Underpass',
       description: '',
       dateTime: DateTime.now(),
@@ -83,7 +102,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '6',
-      author: User(id: 'user_6', username: 'Robert Green', joinDate: DateTime(2024, 1, 1), profileImageUrl: 'https://i.pravatar.cc/300?img=18'),
+      author: User(
+          id: 'user_6',
+          username: 'Robert Green',
+          joinDate: DateTime(2024, 1, 1),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=18'),
       title: 'Unsanitary conditions in public park',
       description: '',
       dateTime: DateTime.now(),
@@ -96,7 +119,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '7',
-      author: User(id: 'user_7', username: 'Emily White', joinDate: DateTime(2023, 7, 5), profileImageUrl: 'https://i.pravatar.cc/300?img=19'),
+      author: User(
+          id: 'user_7',
+          username: 'Emily White',
+          joinDate: DateTime(2023, 7, 5),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=19'),
       title: 'Damaged sidewalk',
       description: '',
       dateTime: DateTime.now(),
@@ -104,14 +131,18 @@ class _HeatmapPageState extends State<HeatmapPage> {
       tags: ['Infrastructure', 'Safety Issue'],
       upvotes: 42,
       downvotes: 5,
-      imageUrl: 'https://images.unsplash.com/photo-1594735515284-88f572c84218?q=80&w=1974&auto=format&fit=crop',
+      imageUrl:
+          'https://images.unsplash.com/photo-1594735515284-88f572c84218?q=80&w=1974&auto=format&fit=crop',
       latitude: 13.0321,
       longitude: 80.2987,
     ),
-    // More reports for a denser heatmap visualization
     Report(
       id: '8',
-      author: User(id: 'user_8', username: 'David Wilson', joinDate: DateTime(2024, 4, 1), profileImageUrl: 'https://i.pravatar.cc/300?img=20'),
+      author: User(
+          id: 'user_8',
+          username: 'David Wilson',
+          joinDate: DateTime(2024, 4, 1),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=20'),
       title: 'Fallen tree blocking path',
       description: '',
       dateTime: DateTime.now().subtract(const Duration(hours: 10)),
@@ -124,7 +155,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '9',
-      author: User(id: 'user_9', username: 'Olivia Green', joinDate: DateTime(2024, 4, 5), profileImageUrl: 'https://i.pravatar.cc/300?img=21'),
+      author: User(
+          id: 'user_9',
+          username: 'Olivia Green',
+          joinDate: DateTime(2024, 4, 5),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=21'),
       title: 'Water main leak on 1st Street',
       description: '',
       dateTime: DateTime.now().subtract(const Duration(days: 1)),
@@ -137,7 +172,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '10',
-      author: User(id: 'user_10', username: 'Lucas White', joinDate: DateTime(2024, 4, 10), profileImageUrl: 'https://i.pravatar.cc/300?img=22'),
+      author: User(
+          id: 'user_10',
+          username: 'Lucas White',
+          joinDate: DateTime(2024, 4, 10),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=22'),
       title: 'Suspicious activity near school',
       description: '',
       dateTime: DateTime.now().subtract(const Duration(hours: 1)),
@@ -150,7 +189,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
     ),
     Report(
       id: '11',
-      author: User(id: 'user_11', username: 'Sophia Black', joinDate: DateTime(2024, 4, 15), profileImageUrl: 'https://i.pravatar.cc/300?img=23'),
+      author: User(
+          id: 'user_11',
+          username: 'Sophia Black',
+          joinDate: DateTime(2024, 4, 15),
+          profileImageUrl: 'https://i.pravatar.cc/300?img=23'),
       title: 'Damaged playground equipment',
       description: '',
       dateTime: DateTime.now().subtract(const Duration(days: 3)),
@@ -191,7 +234,6 @@ class _HeatmapPageState extends State<HeatmapPage> {
     final filteredReports = _selectedFilter == 'All'
         ? _mockReports
         : _mockReports.where((r) => r.tags.contains(_selectedFilter)).toList();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -199,7 +241,8 @@ class _HeatmapPageState extends State<HeatmapPage> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         flexibleSpace: Container(
-          decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
+          decoration:
+              const BoxDecoration(gradient: AppColors.primaryGradient),
         ),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -211,10 +254,7 @@ class _HeatmapPageState extends State<HeatmapPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Colors.blue.shade50,
-              Colors.blue.shade100,
-            ],
+            colors: [Colors.blue.shade50, Colors.blue.shade100],
           ),
         ),
         child: Stack(
@@ -237,17 +277,11 @@ class _HeatmapPageState extends State<HeatmapPage> {
                   borderRadius: BorderRadius.circular(20),
                   child: Stack(
                     children: [
-                      // Background grid pattern
                       Container(
                         width: double.infinity,
                         height: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.grey.shade100,
-                          image: const DecorationImage(
-                            image: NetworkImage('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9IjEiLz4KPC9wYXR0ZXJuPgo8L2RlZnM+CjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+Cjwvc3ZnPgo='),
-                            repeat: ImageRepeat.repeat,
-                            opacity: 0.3,
-                          ),
                         ),
                       ),
                       ...filteredReports.map((report) {
@@ -255,7 +289,9 @@ class _HeatmapPageState extends State<HeatmapPage> {
                           context,
                           (report.longitude - 80.2) / 0.1 * 0.8 + 0.1,
                           (report.latitude - 13.0) / 0.1 * 0.8 + 0.1,
-                          report.tags.isNotEmpty ? report.tags.first : 'default',
+                          report.tags.isNotEmpty
+                              ? report.tags.first
+                              : 'default',
                           report.title,
                         );
                       }).toList(),
@@ -264,8 +300,6 @@ class _HeatmapPageState extends State<HeatmapPage> {
                 ),
               ),
             ),
-
-            // Legend
             Positioned(
               top: 20,
               right: 20,
@@ -289,9 +323,7 @@ class _HeatmapPageState extends State<HeatmapPage> {
                     const Text(
                       'Tag Colors',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                     const SizedBox(height: 8),
                     _buildLegendItem(Colors.brown, 'Pothole'),
@@ -306,8 +338,6 @@ class _HeatmapPageState extends State<HeatmapPage> {
                 ),
               ),
             ),
-
-            // Controls
             Positioned(
               bottom: 20,
               left: 20,
@@ -331,9 +361,7 @@ class _HeatmapPageState extends State<HeatmapPage> {
                     const Text(
                       'Filter Reports',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
@@ -372,16 +400,17 @@ class _HeatmapPageState extends State<HeatmapPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        backgroundColor: isSelected ? AppColors.primaryBlue : Colors.grey.shade200,
+        backgroundColor:
+            isSelected ? AppColors.primaryBlue : Colors.grey.shade200,
       ),
     );
   }
 
-  Widget _buildMarker(BuildContext context, double left, double top, String tag, String reportTitle) {
+  Widget _buildMarker(BuildContext context, double left, double top,
+      String tag, String reportTitle) {
     final screenWidth = MediaQuery.of(context).size.width - 40;
     final screenHeight = MediaQuery.of(context).size.height - 200;
     final color = _getChipColor(tag);
-
     return Positioned(
       left: screenWidth * left - 15 + 20,
       top: screenHeight * top - 15 + 100,
@@ -426,10 +455,7 @@ class _HeatmapPageState extends State<HeatmapPage> {
             ),
           ),
           const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 12),
-          ),
+          Text(label, style: const TextStyle(fontSize: 12)),
         ],
       ),
     );

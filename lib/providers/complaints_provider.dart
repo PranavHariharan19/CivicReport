@@ -1,4 +1,3 @@
-// File: lib/providers/complaints_provider.dart
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models.dart' as models;
@@ -15,42 +14,34 @@ class ComplaintsProvider extends ChangeNotifier {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  // Load complaints from Supabase
   Future<void> loadComplaints() async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
-
     try {
       final response = await _supabase
           .from('reports')
           .select('*, author:author_id(id, username, profile_image_url)')
           .order('created_at', ascending: false);
-
       _complaints = await _buildReportsFromData(response);
     } catch (e) {
       _errorMessage = 'Failed to load complaints: $e';
-      print(_errorMessage);
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  // Update complaint status
-  Future<bool> updateComplaint(String id, String status, {String? priority, String? adminNotes}) async {
+  Future<bool> updateComplaint(String id, String status,
+      {String? priority, String? adminNotes}) async {
     try {
       final updateData = <String, dynamic>{
         'status': status,
         'last_updated': DateTime.now().toIso8601String(),
       };
-
       if (priority != null) updateData['priority'] = priority;
       if (adminNotes != null) updateData['admin_notes'] = adminNotes;
-
       await _supabase.from('reports').update(updateData).eq('id', id);
-
-      // Update local data
       final index = _complaints.indexWhere((c) => c.id == id);
       if (index != -1) {
         _complaints[index] = _complaints[index].copyWith(
@@ -60,7 +51,6 @@ class ComplaintsProvider extends ChangeNotifier {
         );
         notifyListeners();
       }
-
       return true;
     } catch (e) {
       _errorMessage = 'Failed to update complaint: $e';
@@ -69,7 +59,6 @@ class ComplaintsProvider extends ChangeNotifier {
     }
   }
 
-  // Get complaints by status
   List<models.Report> getComplaintsByStatus(String status) {
     if (status == 'unviewed') {
       return _complaints.where((c) => c.status == 'open').toList();
@@ -77,21 +66,20 @@ class ComplaintsProvider extends ChangeNotifier {
     return _complaints.where((c) => c.status == status).toList();
   }
 
-  // Get complaint counts
   Map<String, int> getComplaintCounts() {
     return {
       'total': _complaints.length,
       'open': _complaints.where((c) => c.status == 'open').length,
-      'in-progress': _complaints.where((c) => c.status == 'in-progress').length,
+      'in-progress':
+          _complaints.where((c) => c.status == 'in-progress').length,
       'resolved': _complaints.where((c) => c.status == 'resolved').length,
       'rejected': _complaints.where((c) => c.status == 'rejected').length,
     };
   }
 
-  // Helper method to build reports from raw data
-  Future<List<models.Report>> _buildReportsFromData(List<Map<String, dynamic>> data) async {
+  Future<List<models.Report>> _buildReportsFromData(
+      List<Map<String, dynamic>> data) async {
     final List<models.Report> reports = [];
-
     for (var reportData in data) {
       try {
         models.User author;
@@ -116,14 +104,10 @@ class ComplaintsProvider extends ChangeNotifier {
             .select('vote_type')
             .eq('report_id', reportData['id']);
 
-        int upvotes = votes.where((v) => v['vote_type'] == 'upvote').length;
-        int downvotes = votes.where((v) => v['vote_type'] == 'downvote').length;
-
-        final commentsCount = await _supabase
-            .from('comments')
-            .select('id')
-            .eq('report_id', reportData['id'])
-            .count();
+        int upvotes =
+            votes.where((v) => v['vote_type'] == 'upvote').length;
+        int downvotes =
+            votes.where((v) => v['vote_type'] == 'downvote').length;
 
         final report = models.Report(
           id: reportData['id'],
@@ -148,21 +132,17 @@ class ComplaintsProvider extends ChangeNotifier {
           resolutionNotes: reportData['resolution_notes'],
           adminNotes: reportData['admin_notes'],
           comments: [],
-          // Fix: Add latitude and longitude from the data source
           latitude: reportData['latitude'] ?? 0.0,
           longitude: reportData['longitude'] ?? 0.0,
         );
-
         reports.add(report);
       } catch (e) {
         print('Error building report from data: $e');
       }
     }
-
     return reports;
   }
 
-  // Stream complaints for real-time updates
   Stream<List<models.Report>> get complaintsStream {
     return _supabase
         .from('reports')
@@ -171,7 +151,6 @@ class ComplaintsProvider extends ChangeNotifier {
         .asyncMap((data) async => await _buildReportsFromData(data));
   }
 
-  // Clear error message
   void clearError() {
     _errorMessage = null;
     notifyListeners();

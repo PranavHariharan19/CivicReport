@@ -52,7 +52,7 @@ class StorageService {
       final String fileName = '${DateTime.now().millisecondsSinceEpoch}_${path.basename(file.path)}';
       final String filePath = '$folderPath/$fileName';
 
-      final response = await _supabase.storage
+      await _supabase.storage
           .from(bucketName)
           .upload(filePath, file);
 

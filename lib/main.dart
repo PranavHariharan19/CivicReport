@@ -1,17 +1,15 @@
-// File: main.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sih/LandingPage.dart';
-import 'package:sih/MainFeedPage.dart';
-import 'package:sih/admin.dart';
-import 'package:sih/login_page.dart';
+import 'package:sih/pages/landing_page.dart';
+import 'package:sih/pages/main_feed_page.dart';
+import 'package:sih/pages/admin_page.dart';
+import 'package:sih/pages/login_page.dart';
 import 'package:sih/services/auth_service.dart';
 import 'package:sih/services/storage_service.dart';
-import 'package:sih/ComplaintsProvider.dart';
-import 'package:sih/HeatmapPage.dart';
+import 'package:sih/providers/complaints_provider.dart';
+import 'package:sih/pages/heatmap_page.dart';
 
 void main() {
-  // Mock initialization of services
   runApp(
     MultiProvider(
       providers: [
@@ -52,25 +50,4 @@ class CivicReportApp extends StatelessWidget {
       },
     );
   }
-}
-
-class AppColors {
-  static const primaryBlue = Color(0xFF667EEA);
-  static const deepBlue = Color(0xFF764BA2);
-  static const successGreen = Color(0xFF10B981);
-  static const brightOrange = Color(0xFFF59E0B);
-  static const warningRed = Color(0xFFEF4444);
-  static const lightGray = Color(0xFFF8FAFC);
-  static const mediumGray = Color(0xFF64748B);
-  static const darkGray = Color(0xFF1F2937);
-  static const primaryGradient = LinearGradient(
-    colors: [primaryBlue, deepBlue],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  static const secondaryGradient = LinearGradient(
-    colors: [Color(0xFF3B5998), Color(0xFFD62C22)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
 }

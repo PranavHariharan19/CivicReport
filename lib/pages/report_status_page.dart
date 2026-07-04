@@ -1,8 +1,7 @@
-// File: ReportStatusPage.dart
 import 'package:flutter/material.dart';
 import 'package:sih/models.dart';
-import 'package:sih/main.dart';
-import 'package:sih/shared_widgets.dart';
+import 'package:sih/widgets/app_colors.dart';
+import 'package:sih/widgets/report_card.dart';
 
 class ReportStatusPage extends StatefulWidget {
   final Report report;
@@ -53,7 +52,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               title: Row(
                 children: [
                   Container(
@@ -62,7 +62,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
                       color: AppColors.successGreen.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Icons.check_circle, color: AppColors.successGreen, size: 20),
+                    child: const Icon(Icons.check_circle,
+                        color: AppColors.successGreen, size: 20),
                   ),
                   const SizedBox(width: 12),
                   const Text("Resolve Report"),
@@ -97,10 +98,12 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           setDialogState(() {
-                            _resolutionProofUrl = 'https://images.unsplash.com/photo-1579732789218-18e31006941a?q=80&w=1974&auto=format&fit=crop';
+                            _resolutionProofUrl =
+                                'https://images.unsplash.com/photo-1579732789218-18e31006941a?q=80&w=1974&auto=format&fit=crop';
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Mock photo selected!')),
+                            const SnackBar(
+                                content: Text('Mock photo selected!')),
                           );
                         },
                         icon: const Icon(Icons.camera_alt),
@@ -122,12 +125,14 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.image, color: Colors.green.shade600),
+                            Icon(Icons.image,
+                                color: Colors.green.shade600),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 "Proof photo selected",
-                                style: TextStyle(color: Colors.green.shade700),
+                                style:
+                                    TextStyle(color: Colors.green.shade700),
                               ),
                             ),
                             IconButton(
@@ -148,7 +153,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text("Cancel", style: TextStyle(color: Colors.grey.shade600)),
+                  child: Text("Cancel",
+                      style: TextStyle(color: Colors.grey.shade600)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -187,7 +193,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         flexibleSpace: Container(
-          decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
+          decoration:
+              const BoxDecoration(gradient: AppColors.primaryGradient),
         ),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -197,7 +204,6 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Display status and timestamp
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -252,7 +258,6 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
               currentUserId: 'admin_user_id',
               onAuthorTap: () {},
               onReportUpdated: (updatedReport) {
-                // Update the state of this page when the ReportCard's internal state changes
                 setState(() {
                   _currentReport = updatedReport;
                 });
@@ -262,7 +267,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
             ),
             const SizedBox(height: 20),
             if (widget.isAdmin) _buildAdminControls(),
-            if (_currentReport.status == 'resolved' && _resolutionNotes != null)
+            if (_currentReport.status == 'resolved' &&
+                _resolutionNotes != null)
               _buildResolutionSection(),
           ],
         ),
@@ -332,12 +338,14 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
                 ),
               ),
             ),
-          if (_currentReport.status != 'rejected' && _currentReport.status != 'resolved') ...[
+          if (_currentReport.status != 'rejected' &&
+              _currentReport.status != 'resolved') ...[
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: _isLoading ? null : () => _updateReportStatus('rejected'),
+                onPressed:
+                    _isLoading ? null : () => _updateReportStatus('rejected'),
                 icon: const Icon(Icons.cancel),
                 label: const Text("Mark as Rejected"),
                 style: ElevatedButton.styleFrom(
@@ -382,7 +390,8 @@ class _ReportStatusPageState extends State<ReportStatusPage> {
                   color: AppColors.successGreen.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.check_circle, color: AppColors.successGreen, size: 20),
+                child: const Icon(Icons.check_circle,
+                    color: AppColors.successGreen, size: 20),
               ),
               const SizedBox(width: 12),
               const Text(

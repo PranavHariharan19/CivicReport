@@ -1,13 +1,9 @@
-// File: Profile.dart
 import 'package:flutter/material.dart';
 import 'package:sih/models.dart';
-import 'package:sih/main.dart';
-import 'package:sih/shared_widgets.dart';
-import 'package:sih/UserReportsPage.dart';
-import 'package:sih/MainFeedPage.dart';
-import 'dart:async';
+import 'package:sih/widgets/app_colors.dart';
+import 'package:sih/widgets/report_card.dart';
+import 'package:sih/pages/user_reports_page.dart';
 
-// ------------------ Profile Page ------------------
 class ProfilePage extends StatefulWidget {
   final User user;
   final bool isCurrentUser;
@@ -27,8 +23,6 @@ class _ProfilePageState extends State<ProfilePage>
   int _selectedTabIndex = 0;
   late AnimationController _fadeAnimationController;
   late Animation<double> _fadeAnimation;
-
-  // Mock list of reports, which will be updated on interaction
   List<Report> _userReports = [];
 
   @override
@@ -39,11 +33,10 @@ class _ProfilePageState extends State<ProfilePage>
       vsync: this,
     );
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fadeAnimationController, curve: Curves.easeIn),
+      CurvedAnimation(
+          parent: _fadeAnimationController, curve: Curves.easeIn),
     );
     _fadeAnimationController.forward();
-
-    // Initialize reports for mock user
     if (!widget.user.isAdmin) {
       _userReports = [
         Report(
@@ -51,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage>
           author: widget.user,
           title: 'Dangerous Pothole on Main Street',
           description:
-          'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
+              'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
           dateTime: DateTime.now().subtract(const Duration(hours: 2)),
           status: 'open',
           tags: ['Pothole', 'Infrastructure'],
@@ -65,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage>
           author: widget.user,
           title: 'Noise Complaint - Construction',
           description:
-          'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
+              'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
           dateTime: DateTime.now().subtract(const Duration(days: 2)),
           status: 'open',
           tags: ['Noise Complaint', 'Public Works'],
@@ -102,31 +95,31 @@ class _ProfilePageState extends State<ProfilePage>
                 maxScale: 4,
                 child: (imageUrl != null && imageUrl.isNotEmpty)
                     ? ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Container(
-                          padding: const EdgeInsets.all(40),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade800,
-                            borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            padding: const EdgeInsets.all(40),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade800,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Icon(Icons.person,
+                                size: 120, color: Colors.white),
                           ),
-                          child: const Icon(Icons.person,
-                              size: 120, color: Colors.white),
                         ),
-                  ),
-                )
+                      )
                     : Container(
-                  padding: const EdgeInsets.all(40),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade800,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Icon(Icons.person,
-                      size: 120, color: Colors.white),
-                ),
+                        padding: const EdgeInsets.all(40),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade800,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Icon(Icons.person,
+                            size: 120, color: Colors.white),
+                      ),
               ),
             ),
           ),
@@ -135,28 +128,18 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  void _onReportUpdated(Report updatedReport) {
-    setState(() {
-      final index = _userReports.indexWhere((r) => r.id == updatedReport.id);
-      if (index != -1) {
-        _userReports[index] = updatedReport;
-      }
-    });
-  }
-
   void _goToUserFeed(User user) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => UserReportsPage(user: user),
-      ),
+      MaterialPageRoute(builder: (_) => UserReportsPage(user: user)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.isCurrentUser && _selectedTabIndex == 1) _selectedTabIndex = 0;
-
+    if (!widget.isCurrentUser && _selectedTabIndex == 1) {
+      _selectedTabIndex = 0;
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
@@ -167,9 +150,8 @@ class _ProfilePageState extends State<ProfilePage>
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: AppColors.secondaryGradient,
-          ),
+          decoration:
+              const BoxDecoration(gradient: AppColors.secondaryGradient),
         ),
         elevation: 0,
       ),
@@ -180,7 +162,8 @@ class _ProfilePageState extends State<ProfilePage>
             setState(() {});
           },
           child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
             children: [
               _buildHeaderSection(),
               const SizedBox(height: 20),
@@ -330,7 +313,8 @@ class _ProfilePageState extends State<ProfilePage>
                       content: const Text("Edit profile feature coming soon!"),
                       backgroundColor: Colors.blue.shade600,
                       behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                   );
                 },
@@ -342,19 +326,19 @@ class _ProfilePageState extends State<ProfilePage>
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text("Notification settings coming soon!"),
+                      content: const Text(
+                          "Notification settings coming soon!"),
                       backgroundColor: Colors.blue.shade600,
                       behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                   );
                 },
               ),
             ],
           ),
-
           const SizedBox(height: 24),
-
           _buildSettingsGroup(
             title: "Account Settings",
             icon: Icons.security,
@@ -369,7 +353,8 @@ class _ProfilePageState extends State<ProfilePage>
                       content: const Text("Privacy settings coming soon!"),
                       backgroundColor: Colors.blue.shade600,
                       behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                   );
                 },
@@ -384,16 +369,15 @@ class _ProfilePageState extends State<ProfilePage>
                       content: const Text("Help center coming soon!"),
                       backgroundColor: Colors.blue.shade600,
                       behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                     ),
                   );
                 },
               ),
             ],
           ),
-
           const SizedBox(height: 40),
-
           _buildLogoutButton(context),
         ],
       ),
@@ -404,7 +388,6 @@ class _ProfilePageState extends State<ProfilePage>
     if (_userReports.isEmpty) {
       return _buildEmptyReports();
     }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -433,7 +416,8 @@ class _ProfilePageState extends State<ProfilePage>
             onAuthorTap: () => _goToUserFeed(widget.user),
             onReportUpdated: (updatedReport) {
               setState(() {
-                final reportIndex = _userReports.indexWhere((r) => r.id == updatedReport.id);
+                final reportIndex = _userReports
+                    .indexWhere((r) => r.id == updatedReport.id);
                 if (reportIndex != -1) {
                   _userReports[reportIndex] = updatedReport;
                 }
@@ -491,9 +475,10 @@ class _ProfilePageState extends State<ProfilePage>
 
   Widget _buildHeaderSection() {
     final reportsSubmitted = _userReports.length;
-    final totalUpvotes = _userReports.fold(0, (sum, report) => sum + report.upvotes);
-    final totalComments = _userReports.fold(0, (sum, report) => sum + report.comments.length);
-
+    final totalUpvotes =
+        _userReports.fold(0, (sum, report) => sum + report.upvotes);
+    final totalComments =
+        _userReports.fold(0, (sum, report) => sum + report.comments.length);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -510,7 +495,8 @@ class _ProfilePageState extends State<ProfilePage>
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => _showProfilePhoto(context, widget.user.profileImageUrl),
+            onTap: () =>
+                _showProfilePhoto(context, widget.user.profileImageUrl),
             child: Hero(
               tag: "profilePhoto_${widget.user.username}",
               child: Container(
@@ -528,12 +514,13 @@ class _ProfilePageState extends State<ProfilePage>
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: Colors.transparent,
-                  backgroundImage: (widget.user.profileImageUrl != null &&
-                      widget.user.profileImageUrl!.isNotEmpty)
-                      ? NetworkImage(widget.user.profileImageUrl!)
-                      : null,
+                  backgroundImage:
+                      (widget.user.profileImageUrl != null &&
+                              widget.user.profileImageUrl!.isNotEmpty)
+                          ? NetworkImage(widget.user.profileImageUrl!)
+                          : null,
                   child: (widget.user.profileImageUrl == null ||
-                      widget.user.profileImageUrl!.isEmpty)
+                          widget.user.profileImageUrl!.isEmpty)
                       ? const Icon(Icons.person, size: 55, color: Colors.white)
                       : null,
                 ),
@@ -551,7 +538,8 @@ class _ProfilePageState extends State<ProfilePage>
           ),
           const SizedBox(height: 8),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.blue.shade50,
               borderRadius: BorderRadius.circular(20),
@@ -571,19 +559,22 @@ class _ProfilePageState extends State<ProfilePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildStatItem("Reports", reportsSubmitted, Icons.assignment, Colors.blue),
+                _buildStatItem(
+                    "Reports", reportsSubmitted, Icons.assignment, Colors.blue),
                 Container(
                   height: 40,
                   width: 1,
                   color: Colors.grey.shade300,
                 ),
-                _buildStatItem("Upvotes", totalUpvotes, Icons.thumb_up, Colors.green),
+                _buildStatItem(
+                    "Upvotes", totalUpvotes, Icons.thumb_up, Colors.green),
                 Container(
                   height: 40,
                   width: 1,
                   color: Colors.grey.shade300,
                 ),
-                _buildStatItem("Comments", totalComments, Icons.comment, Colors.orange),
+                _buildStatItem(
+                    "Comments", totalComments, Icons.comment, Colors.orange),
               ],
             ),
         ],
@@ -591,7 +582,8 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  Widget _buildStatItem(String label, int value, IconData icon, Color color) {
+  Widget _buildStatItem(
+      String label, int value, IconData icon, Color color) {
     return Column(
       children: [
         Container(
@@ -640,9 +632,13 @@ class _ProfilePageState extends State<ProfilePage>
       ),
       child: Row(
         children: [
-          Expanded(child: _buildTabButton(0, "Reports", Icons.assignment)),
+          Expanded(
+              child: _buildTabButton(
+                  0, "Reports", Icons.assignment)),
           if (widget.isCurrentUser)
-            Expanded(child: _buildTabButton(1, "Settings", Icons.settings)),
+            Expanded(
+                child: _buildTabButton(
+                    1, "Settings", Icons.settings)),
         ],
       ),
     );
@@ -657,11 +653,10 @@ class _ProfilePageState extends State<ProfilePage>
         borderRadius: BorderRadius.circular(12),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          padding:
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           decoration: BoxDecoration(
-            gradient: isSelected
-                ? AppColors.secondaryGradient
-                : null,
+            gradient: isSelected ? AppColors.secondaryGradient : null,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -676,7 +671,8 @@ class _ProfilePageState extends State<ProfilePage>
               Text(
                 text,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey.shade600,
+                  color:
+                      isSelected ? Colors.white : Colors.grey.shade600,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
@@ -701,16 +697,15 @@ class _ProfilePageState extends State<ProfilePage>
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              '/',
-                  (Route<dynamic> route) => false,
-            );
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text("Successfully logged out"),
                 backgroundColor: Colors.green.shade600,
                 behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
               ),
             );
           },
@@ -831,7 +826,8 @@ class _ProfilePageState extends State<ProfilePage>
                   color: AppColors.primaryBlue.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, color: AppColors.primaryBlue, size: 20),
+                child:
+                    Icon(icon, color: AppColors.primaryBlue, size: 20),
               ),
               const SizedBox(width: 16),
               Expanded(

@@ -1,13 +1,9 @@
-// File: MainFeedPage.dart
 import 'package:flutter/material.dart';
 import 'package:sih/models.dart';
-import 'package:sih/shared_widgets.dart';
-import 'package:sih/Profile.dart';
-import 'package:sih/main.dart';
-import 'dart:io';
-import 'dart:async';
+import 'package:sih/widgets/report_card.dart';
+import 'package:sih/pages/profile_page.dart';
+import 'package:sih/widgets/app_colors.dart';
 
-// Tag Helper
 class TagData {
   final String title;
   final Color color;
@@ -21,11 +17,11 @@ class MainFeedPage extends StatefulWidget {
   State<MainFeedPage> createState() => _MainFeedPageState();
 }
 
-class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMixin {
+class _MainFeedPageState extends State<MainFeedPage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
-  // Mock user
   final User _mockUser = User(
     id: 'public_user_1',
     username: 'Alice',
@@ -33,7 +29,6 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
     profileImageUrl: 'https://i.pravatar.cc/300?img=1',
   );
 
-  // Sample reports
   final List<Report> _reports = [
     Report(
       id: '1',
@@ -44,7 +39,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         profileImageUrl: 'https://i.pravatar.cc/300?img=15',
       ),
       title: 'Dangerous Pothole on Main Street',
-      description: 'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
+      description:
+          'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
       dateTime: DateTime.now().subtract(const Duration(hours: 2)),
       status: 'open',
       tags: ['Pothole', 'Infrastructure'],
@@ -62,7 +58,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         profileImageUrl: 'https://i.pravatar.cc/300?img=13',
       ),
       title: 'Broken Streetlight - Safety Concern',
-      description: 'Streetlight has been out for over a week on Oak Avenue. Creates safety hazard for pedestrians at night.',
+      description:
+          'Streetlight has been out for over a week on Oak Avenue. Creates safety hazard for pedestrians at night.',
       dateTime: DateTime.now().subtract(const Duration(hours: 5)),
       status: 'in-progress',
       tags: ['Broken Light', 'Safety Issue'],
@@ -80,13 +77,15 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         profileImageUrl: 'https://i.pravatar.cc/300?img=14',
       ),
       title: 'Illegal Garbage Dumping',
-      description: 'Someone has been dumping construction waste behind the community center. Environmental hazard.',
+      description:
+          'Someone has been dumping construction waste behind the community center. Environmental hazard.',
       dateTime: DateTime.now().subtract(const Duration(days: 1)),
       status: 'resolved',
       tags: ['Illegal Dumping', 'Environment'],
       upvotes: 31,
       downvotes: 2,
-      imageUrl: 'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      imageUrl:
+          'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       latitude: 13.0456,
       longitude: 80.2190,
     ),
@@ -99,7 +98,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         profileImageUrl: 'https://i.pravatar.cc/300?img=16',
       ),
       title: 'Noise Complaint - Construction',
-      description: 'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
+      description:
+          'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
       dateTime: DateTime.now().subtract(const Duration(days: 2)),
       status: 'open',
       tags: ['Noise Complaint', 'Public Works'],
@@ -133,7 +133,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => ProfilePage(user: user, isCurrentUser: user.id == _mockUser.id),
+        builder: (_) =>
+            ProfilePage(user: user, isCurrentUser: user.id == _mockUser.id),
       ),
     );
   }
@@ -160,7 +161,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               title: Row(
                 children: [
                   Container(
@@ -169,7 +171,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
                       gradient: AppColors.primaryGradient,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Icons.add, color: Colors.white, size: 20),
+                    child:
+                        const Icon(Icons.add, color: Colors.white, size: 20),
                   ),
                   const SizedBox(width: 12),
                   const Text("Create New Report"),
@@ -180,20 +183,29 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDialogTextField(controller: titleController, label: "Title", maxLines: 1),
+                    _buildDialogTextField(
+                        controller: titleController,
+                        label: "Title",
+                        maxLines: 1),
                     const SizedBox(height: 16),
-                    _buildDialogTextField(controller: bodyController, label: "Description", maxLines: 4),
+                    _buildDialogTextField(
+                        controller: bodyController,
+                        label: "Description",
+                        maxLines: 4),
                     const SizedBox(height: 16),
-                    _buildTagSection(predefinedTags, selectedTags, setDialogState),
+                    _buildTagSection(
+                        predefinedTags, selectedTags, setDialogState),
                   ],
                 ),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: Text("Cancel", style: TextStyle(color: Colors.grey.shade600)),
+                  child: Text("Cancel",
+                      style: TextStyle(color: Colors.grey.shade600)),
                 ),
-                _buildPostButton(ctx, titleController, bodyController, selectedTags),
+                _buildPostButton(
+                    ctx, titleController, bodyController, selectedTags),
               ],
             );
           },
@@ -224,13 +236,17 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
     );
   }
 
-  Widget _buildTagSection(List<TagData> predefinedTags, Set<String> selectedTags, StateSetter setDialogState) {
+  Widget _buildTagSection(List<TagData> predefinedTags,
+      Set<String> selectedTags, StateSetter setDialogState) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Add Tags:",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.shade700),
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade700),
         ),
         const SizedBox(height: 8),
         Wrap(
@@ -252,7 +268,9 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
               },
               selectedColor: tag.color.withOpacity(0.8),
               backgroundColor: tag.color.withOpacity(0.2),
-              labelStyle: TextStyle(color: isSelected ? Colors.white : tag.color, fontWeight: FontWeight.w600),
+              labelStyle: TextStyle(
+                  color: isSelected ? Colors.white : tag.color,
+                  fontWeight: FontWeight.w600),
             );
           }).toList(),
         ),
@@ -264,8 +282,7 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
       BuildContext ctx,
       TextEditingController titleController,
       TextEditingController bodyController,
-      Set<String> selectedTags,
-      ) {
+      Set<String> selectedTags) {
     return Container(
       decoration: BoxDecoration(
         gradient: AppColors.primaryGradient,
@@ -275,11 +292,12 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25)),
         ),
         onPressed: () {
-          if (titleController.text.isEmpty || bodyController.text.isEmpty) return;
-
+          if (titleController.text.isEmpty ||
+              bodyController.text.isEmpty) return;
           final newReport = Report(
             id: DateTime.now().millisecondsSinceEpoch.toString(),
             author: _mockUser,
@@ -293,12 +311,12 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
             latitude: 13.0827,
             longitude: 80.2707,
           );
-
           setState(() => _reports.insert(0, newReport));
           Navigator.of(ctx).pop();
-
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Report submitted successfully!'), backgroundColor: AppColors.successGreen),
+            const SnackBar(
+                content: Text('Report submitted successfully!'),
+                backgroundColor: AppColors.successGreen),
           );
         },
         child: const Text("Post", style: TextStyle(color: Colors.white)),
@@ -312,11 +330,16 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Community Feed", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        flexibleSpace: Container(decoration: const BoxDecoration(gradient: AppColors.primaryGradient)),
+        title: const Text("Community Feed",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        flexibleSpace: Container(
+            decoration:
+                const BoxDecoration(gradient: AppColors.primaryGradient)),
         elevation: 0,
         actions: [
-          IconButton(icon: const Icon(Icons.person, color: Colors.white), onPressed: () => _goToProfile(context, _mockUser)),
+          IconButton(
+              icon: const Icon(Icons.person, color: Colors.white),
+              onPressed: () => _goToProfile(context, _mockUser)),
         ],
       ),
       body: FadeTransition(
@@ -325,7 +348,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
           onRefresh: () async {
             setState(() {});
             await Future.delayed(const Duration(milliseconds: 500));
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Feed refreshed!')));
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Feed refreshed!')));
           },
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -338,10 +362,12 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
                   child: ReportCard(
                     report: report,
                     currentUserId: _mockUser.id,
-                    onAuthorTap: () => _goToProfile(context, report.author),
+                    onAuthorTap: () =>
+                        _goToProfile(context, report.author),
                     onReportUpdated: (updatedReport) {
                       setState(() {
-                        final reportIndex = _reports.indexWhere((r) => r.id == updatedReport.id);
+                        final reportIndex =
+                            _reports.indexWhere((r) => r.id == updatedReport.id);
                         if (reportIndex != -1) {
                           _reports[reportIndex] = updatedReport;
                         }
@@ -364,7 +390,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
             onPressed: () => Navigator.pushNamed(context, '/heatmap'),
             backgroundColor: AppColors.deepBlue,
             icon: const Icon(Icons.map, color: Colors.white),
-            label: const Text("View Heatmap", style: TextStyle(color: Colors.white)),
+            label: const Text("View Heatmap",
+                style: TextStyle(color: Colors.white)),
           ),
           const SizedBox(height: 16),
           FloatingActionButton.extended(
@@ -372,7 +399,8 @@ class _MainFeedPageState extends State<MainFeedPage> with TickerProviderStateMix
             onPressed: () => _showCreatePostDialog(context),
             backgroundColor: AppColors.primaryBlue,
             icon: const Icon(Icons.add, color: Colors.white),
-            label: const Text("Create Report", style: TextStyle(color: Colors.white)),
+            label: const Text("Create Report",
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

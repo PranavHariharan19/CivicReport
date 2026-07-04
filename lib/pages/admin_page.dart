@@ -1,12 +1,8 @@
-// File: admin.dart
 import 'package:flutter/material.dart';
-import 'package:sih/MainFeedPage.dart';
-import 'package:sih/ReportStatusPage.dart';
 import 'package:sih/models.dart';
-import 'package:sih/main.dart';
-import 'package:sih/shared_widgets.dart';
-import 'package:sih/Profile.dart';
-import 'package:sih/HeatmapPage.dart';
+import 'package:sih/widgets/app_colors.dart';
+import 'package:sih/widgets/report_card.dart';
+import 'package:sih/pages/profile_page.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
@@ -57,7 +53,8 @@ class AdminDashboard extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+            onPressed: () =>
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
             tooltip: 'Sign Out',
           ),
         ],
@@ -146,14 +143,17 @@ class AdminDashboard extends StatelessWidget {
         const SizedBox(width: 12),
         _buildStatBox(context, 'Pending', '23', AppColors.brightOrange, 'open'),
         const SizedBox(width: 12),
-        _buildStatBox(context, 'In Progress', '156', AppColors.deepBlue, 'in-progress'),
+        _buildStatBox(
+            context, 'In Progress', '156', AppColors.deepBlue, 'in-progress'),
         const SizedBox(width: 12),
-        _buildStatBox(context, 'Resolved', '668', AppColors.successGreen, 'resolved'),
+        _buildStatBox(
+            context, 'Resolved', '668', AppColors.successGreen, 'resolved'),
       ],
     );
   }
 
-  Widget _buildStatBox(BuildContext context, String title, String value, Color color, String status) {
+  Widget _buildStatBox(BuildContext context, String title, String value,
+      Color color, String status) {
     return Expanded(
       child: GestureDetector(
         onTap: () => _navigateToComplaintsPage(context, status),
@@ -216,7 +216,8 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=15',
         ),
         title: 'Dangerous Pothole on Main Street',
-        description: 'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
+        description:
+            'Large pothole causing vehicle damage near the intersection of Main St and 5th Ave. Multiple cars have been affected.',
         dateTime: DateTime.now().subtract(const Duration(hours: 2)),
         status: 'open',
         tags: ['Pothole', 'Infrastructure'],
@@ -234,7 +235,8 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=13',
         ),
         title: 'Broken Streetlight - Safety Concern',
-        description: 'Streetlight has been out for over a week on Oak Avenue. Creates safety hazard for pedestrians at night.',
+        description:
+            'Streetlight has been out for over a week on Oak Avenue. Creates safety hazard for pedestrians at night.',
         dateTime: DateTime.now().subtract(const Duration(hours: 5)),
         status: 'in-progress',
         tags: ['Broken Light', 'Safety Issue'],
@@ -252,13 +254,15 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=14',
         ),
         title: 'Illegal Garbage Dumping',
-        description: 'Someone has been dumping construction waste behind the community center. Environmental hazard.',
+        description:
+            'Someone has been dumping construction waste behind the community center. Environmental hazard.',
         dateTime: DateTime.now().subtract(const Duration(days: 1)),
         status: 'resolved',
         tags: ['Illegal Dumping', 'Environment'],
         upvotes: 31,
         downvotes: 2,
-        imageUrl: 'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imageUrl:
+            'https://images.unsplash.com/photo-1627916538059-450f1422d057?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         latitude: 13.0456,
         longitude: 80.2190,
       ),
@@ -271,7 +275,8 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=16',
         ),
         title: 'Noise Complaint - Construction',
-        description: 'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
+        description:
+            'Construction work starting at 5 AM violates city noise ordinance. Affecting entire neighborhood.',
         dateTime: DateTime.now().subtract(const Duration(days: 2)),
         status: 'open',
         tags: ['Noise Complaint', 'Public Works'],
@@ -289,7 +294,8 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=17',
         ),
         title: 'Graffiti on Underpass',
-        description: 'Large graffiti on the highway underpass at Elm Street. Needs to be cleaned up.',
+        description:
+            'Large graffiti on the highway underpass at Elm Street. Needs to be cleaned up.',
         dateTime: DateTime.now().subtract(const Duration(days: 3)),
         status: 'in-progress',
         tags: ['Graffiti', 'Vandalism'],
@@ -307,7 +313,8 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=18',
         ),
         title: 'Unsanitary conditions in public park',
-        description: 'Trash cans are overflowing and a foul smell is present in the park near the playground.',
+        description:
+            'Trash cans are overflowing and a foul smell is present in the park near the playground.',
         dateTime: DateTime.now().subtract(const Duration(days: 4)),
         status: 'open',
         tags: ['Environment', 'Public Works'],
@@ -325,18 +332,19 @@ class ComplaintsStatusPage extends StatelessWidget {
           profileImageUrl: 'https://i.pravatar.cc/300?img=19',
         ),
         title: 'Damaged sidewalk',
-        description: 'A large crack in the sidewalk poses a tripping hazard to pedestrians.',
+        description:
+            'A large crack in the sidewalk poses a tripping hazard to pedestrians.',
         dateTime: DateTime.now().subtract(const Duration(days: 5)),
         status: 'resolved',
         tags: ['Infrastructure', 'Safety Issue'],
         upvotes: 42,
         downvotes: 5,
-        imageUrl: 'https://images.unsplash.com/photo-1594735515284-88f572c84218?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        imageUrl:
+            'https://images.unsplash.com/photo-1594735515284-88f572c84218?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         latitude: 13.0321,
         longitude: 80.2987,
       ),
     ];
-
     if (status == 'all') return allReports;
     return allReports.where((report) => report.status == status).toList();
   }
@@ -345,8 +353,8 @@ class ComplaintsStatusPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final reports = _getReportsByStatus(status);
     final statusDisplayName = status.replaceAll('-', ' ');
-    final mockUser = User(id: 'admin_user', username: 'Admin', joinDate: DateTime.now(), isAdmin: true);
-
+    final mockUser =
+        User(id: 'admin_user', username: 'Admin', joinDate: DateTime.now(), isAdmin: true);
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
@@ -361,49 +369,46 @@ class ComplaintsStatusPage extends StatelessWidget {
       ),
       body: reports.isEmpty
           ? Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.assignment_outlined,
-              size: 64,
-              color: Colors.grey.shade400,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'No $statusDisplayName complaints found',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey.shade600,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.assignment_outlined,
+                    size: 64,
+                    color: Colors.grey.shade400,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No $statusDisplayName complaints found',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      )
+            )
           : ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: reports.length,
-        itemBuilder: (context, index) {
-          final report = reports[index];
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: ReportCard(
-                report: report,
-                currentUserId: mockUser.id,
-                onAuthorTap: () {},
-                onReportUpdated: (updatedReport) {
-                  // The parent widget (this page) must be a StatefulWidget to update.
-                  // Since it's a StatelessWidget, we can't update.
-                  // For a prototype, we can use a workaround to force a rebuild.
-                  (context as Element).markNeedsBuild();
-                },
-                isAdmin: true,
-              ),
+              padding: const EdgeInsets.all(16.0),
+              itemCount: reports.length,
+              itemBuilder: (context, index) {
+                final report = reports[index];
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: ReportCard(
+                      report: report,
+                      currentUserId: mockUser.id,
+                      onAuthorTap: () {},
+                      onReportUpdated: (updatedReport) {
+                        (context as Element).markNeedsBuild();
+                      },
+                      isAdmin: true,
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
